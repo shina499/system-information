@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مشخصات سخت‌افزاری دستگاه</title>
+
+<!-- Tailwind CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+
+<script>
+  tailwind.config = {
+    darkMode: 'class',
+    theme: {
+      extend: {
+        fontFamily: { sans: ['Vazirmatn', 'system-ui', 'sans-serif'] },
+      }
+    }
+  }
+</script>
+
+<!-- فونت وزیرمتن -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+
+<style>
+  html, body { font-family: 'Vazirmatn', system-ui, sans-serif; }
+
+  /* ---------- Glass Card ---------- */
+  .glass {
+    position: relative;
+    background: rgba(255, 255, 255, 0.55);
+    backdrop-filter: blur(22px) saturate(160%);
+    -webkit-backdrop-filter: blur(22px) saturate(160%);
+    border: 1px solid rgba(255, 255, 255, 0.75);
+    box-shadow:
+      0 8px 32px rgba(31, 38, 135, 0.10),
+      inset 0 1px 0 rgba(255, 255, 255, 0.8);
+    transition: transform .3s ease, box-shadow .3s ease, border-color .3s ease;
+  }
+  .dark .glass {
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.10);
+    box-shadow:
+      0 8px 32px rgba(0, 0, 0, 0.55),
+      inset 0 1px 0 rgba(255, 255, 255, 0.06);
+  }
+  .glass:hover { transform: translateY(-3px); }
+  .dark .glass:hover {
+    border-color: rgba(0, 229, 255, 0.40);
+    box-shadow:
+      0 0 26px rgba(0, 229, 255, 0.18),
+      0 12px 40px rgba(0, 0, 0, 0.65),
+      inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  }
+
+  /* ---------- Neon Text ---------- */
+  .neon-value {
+    color: #4f46e5;
+    font-weight: 700;
+  }
+  .dark .neon-value {
+    color: #67e8f9;
+    text-shadow: 0 0 8px rgba(0, 229, 255, 0.85), 0 0 18px rgba(0, 229, 255, 0.35);
+  }
+  .neon-title {
+    color: #1e293b;
+  }
+  .dark .neon-title {
+    color: #f8fafc;
+    text-shadow: 0 0 14px rgba(0, 229, 255, 0.55), 0 0 30px rgba(168, 85, 247, 0.35);
+  }
+  .card-title-dark { }
+  .dark .card-title-dark {
+    text-shadow: 0 0 10px rgba(0, 229, 255, 0.55);
+  }
+
+  /* ---------- Scrollbar (برای موبایل) ---------- */
+  ::-webkit-scrollbar { width: 8px; height: 8px; }
+  ::-webkit-scrollbar-track { background: transparent; }
+  ::-webkit-scrollbar-thumb { background: rgba(120,120,140,.35); border-radius: 99px; }
+  .dark ::-webkit-scrollbar-thumb { background: rgba(0,229,255,.30); }
+
+  /* انیمیشن ورود کارت‌ها */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(14px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+  .fade-up { animation: fadeUp .5s ease both; }
+</style>
+</head>
+
+<body class="min-h-screen bg-slate-100 text-slate-800 dark:bg-[#05060a] dark:text-slate-200 transition-colors duration-500">
+
+  <!-- ================= Background Blobs ================= -->
+  <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div class="absolute -top-40 -right-40 w-[28rem] h-[28rem] rounded-full blur-[130px]
+                bg-fuchsia-400/40 dark:bg-fuchsia-600/25"></div>
+    <div class="absolute -bottom-40 -left-40 w-[30rem] h-[30rem] rounded-full blur-[140px]
+                bg-sky-400/40 dark:bg-cyan-500/25"></div>
+    <div class="absolute top-1/3 left-1/2 -translate-x-1/2 w-[24rem] h-[24rem] rounded-full blur-[150px]
+                bg-violet-300/35 dark:bg-violet-600/20"></div>
+    <!-- گرید نئونی در دارک -->
+    <div class="hidden dark:block absolute inset-0 opacity-[0.07]
+      [background-image:linear-gradient(rgba(0,229,255,.6)_1px,transparent_1px),linear-gradient(90deg,rgba(0,229,255,.6)_1px,transparent_1px)]
+      [background-size:48px_48px]"></div>
+  </div>
+
+  <!-- ================= Layout ================= -->
+  <div class="min-h-screen lg:h-screen flex flex-col gap-4 p-4 sm:p-6 lg:gap-5 lg:p-6 lg:overflow-hidden">
+
+    <!-- ---------- Header ---------- -->
+    <header class="flex items-center justify-between gap-3 shrink-0 fade-up">
+      <div class="flex items-center gap-3">
+        <div class="w-11 h-11 rounded-2xl grid place-items-center
+                    bg-gradient-to-br from-cyan-400 to-violet-500
+                    shadow-lg shadow-cyan-500/30 dark:shadow-cyan-500/50">
+          <svg class="w-6 h-6 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="4" y="4" width="16" height="16" rx="2"/>
+            <rect x="9" y="9" width="6" height="6"/>
+            <path d="M9 2v2M15 2v2M9 20v2M15 20v2M2 9h2M2 15h2M20 9h2M20 15h2"/>
+          </svg>
+        </div>
+        <div>
+          <h1 class="text-lg sm:text-xl lg:text-2xl font-black neon-title leading-tight">
+            مشخصات سخت‌افزاری دستگاه
+          </h1>
+          <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400">
+            اطلاعات زنده از APIهای مرورگر
+          </p>
+        </div>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <!-- Refresh -->
+        <button onclick="collect()"
+          class="w-10 h-10 rounded-xl grid place-items-center glass
+                 hover:scale-105 active:scale-95 transition"
+          title="دریافت مجدد">
+          <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12a9 9 0 1 1-3-6.7L21 8"/><path d="M21 3v5h-5"/>
+          </svg>
+        </button>
+
+        <!-- Theme Toggle -->
+        <button id="themeBtn" onclick="toggleTheme()"
+          class="w-10 h-10 rounded-xl grid place-items-center glass
+                 hover:scale-105 active:scale-95 transition"
+          title="تغییر تم">
+          <svg id="iconSun" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"/>
+            <path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>
+          </svg>
+          <svg id="iconMoon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>
+          </svg>
+        </button>
+      </div>
+    </header>
+
+    <!-- ---------- Cards Grid ---------- -->
+    <main class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 lg:grid-rows-2 gap-4 lg:gap-5 lg:flex-1 lg:min-h-0">
+
+      <!-- 1) CPU -->
+      <section class="glass rounded-2xl p-4 sm:p-5 flex flex-col fade-up" style="animation-delay:.05s">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">🧠</span>
+          <h2 class="text-sm font-bold text-slate-700 dark:text-cyan-200 card-title-dark">پردازنده</h2>
+        </div>
+        <div class="flex-1 flex flex-col justify-center gap-1.5 text-[13px]">
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">هسته‌های منطقی</span>
+            <span id="cpu-cores" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">وضعیت WebGPU</span>
+            <span id="gpu-status" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 dark:text-slate-400">معماری GPU</span>
+            <span id="gpu-arch" class="neon-value">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2) Memory -->
+      <section class="glass rounded-2xl p-4 sm:p-5 flex flex-col fade-up" style="animation-delay:.1s">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">💾</span>
+          <h2 class="text-sm font-bold text-slate-700 dark:text-cyan-200 card-title-dark">حافظه و گرافیک</h2>
+        </div>
+        <div class="flex-1 flex flex-col justify-center gap-1.5 text-[13px]">
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">حافظه تقریبی (RAM)</span>
+            <span id="mem-ram" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">پشتیبانی WebGL</span>
+            <span id="mem-webgl" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 dark:text-slate-400">پردازنده گرافیکی</span>
+            <span id="mem-renderer" class="neon-value truncate max-w-[55%] text-left" dir="ltr">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 3) Display -->
+      <section class="glass rounded-2xl p-4 sm:p-5 flex flex-col fade-up" style="animation-delay:.15s">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">🖥️</span>
+          <h2 class="text-sm font-bold text-slate-700 dark:text-cyan-200 card-title-dark">نمایشگر</h2>
+        </div>
+        <div class="flex-1 flex flex-col justify-center gap-1.5 text-[13px]">
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">رزولوشن</span>
+            <span id="scr-res" class="neon-value" dir="ltr">—</span>
+          </div>
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">نسبت پیکسل</span>
+            <span id="scr-dpr" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 dark:text-slate-400">عمق رنگ</span>
+            <span id="scr-depth" class="neon-value">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 4) Battery -->
+      <section class="glass rounded-2xl p-4 sm:p-5 flex flex-col fade-up" style="animation-delay:.2s">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">🔋</span>
+          <h2 class="text-sm font-bold text-slate-700 dark:text-cyan-200 card-title-dark">باتری</h2>
+        </div>
+
+        <!-- نوار شارژ -->
+        <div class="mb-3">
+          <div class="h-2.5 w-full rounded-full bg-slate-300/60 dark:bg-white/10 overflow-hidden">
+            <div id="bat-bar" class="h-full rounded-full bg-gradient-to-l from-cyan-400 to-violet-500
+                                     dark:shadow-[0_0_12px_rgba(0,229,255,.8)] transition-all duration-700"
+                 style="width:0%"></div>
+          </div>
+        </div>
+
+        <div class="flex-1 flex flex-col justify-center gap-1.5 text-[13px]">
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">سطح شارژ</span>
+            <span id="bat-level" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">وضعیت</span>
+            <span id="bat-charging" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 dark:text-slate-400">زمان تخلیه</span>
+            <span id="bat-time" class="neon-value">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 5) Network -->
+      <section class="glass rounded-2xl p-4 sm:p-5 flex flex-col fade-up" style="animation-delay:.25s">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">🌐</span>
+          <h2 class="text-sm font-bold text-slate-700 dark:text-cyan-200 card-title-dark">شبکه</h2>
+        </div>
+        <div class="flex-1 flex flex-col justify-center gap-1.5 text-[13px]">
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">نوع اتصال</span>
+            <span id="net-type" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">سرعت تخمینی</span>
+            <span id="net-down" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 dark:text-slate-400">وضعیت آنلاین</span>
+            <span id="net-online" class="neon-value">—</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6) Device -->
+      <section class="glass rounded-2xl p-4 sm:p-5 flex flex-col fade-up" style="animation-delay:.3s">
+        <div class="flex items-center gap-2 mb-3">
+          <span class="text-lg">📱</span>
+          <h2 class="text-sm font-bold text-slate-700 dark:text-cyan-200 card-title-dark">دستگاه و سیستم</h2>
+        </div>
+        <div class="flex-1 flex flex-col justify-center gap-1.5 text-[13px]">
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">پلتفرم</span>
+            <span id="dev-platform" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between border-b border-dashed border-slate-300/60 dark:border-white/10 pb-1.5">
+            <span class="text-slate-500 dark:text-slate-400">نوع دستگاه</span>
+            <span id="dev-mobile" class="neon-value">—</span>
+          </div>
+          <div class="flex justify-between">
+            <span class="text-slate-500 dark:text-slate-400">نقاط لمسی</span>
+            <span id="dev-touch" class="neon-value">—</span>
+          </div>
+        </div>
+      </section>
+
+    </main>
+
+    <footer class="shrink-0 text-center text-[11px] text-slate-500 dark:text-slate-500 fade-up" style="animation-delay:.35s">
+      ساخته‌شده با Tailwind CSS • داده‌ها از APIهای وب استخراج شده‌اند
+    </footer>
+  </div>
+
+<script>
+/* =========================================================
+   Theme
+   ========================================================= */
+const root = document.documentElement;
+const iconSun = document.getElementById('iconSun');
+const iconMoon = document.getElementById('iconMoon');
+
+function applyTheme(theme) {
+  if (theme === 'dark') {
+    root.classList.add('dark');
+    iconMoon.classList.add('hidden');
+    iconSun.classList.remove('hidden');
+  } else {
+    root.classList.remove('dark');
+    iconSun.classList.add('hidden');
+    iconMoon.classList.remove('hidden');
+  }
+  localStorage.setItem('theme', theme);
+}
+function toggleTheme() {
+  applyTheme(root.classList.contains('dark') ? 'light' : 'dark');
+}
+// مقدار اولیه: ذخیره‌شده یا ترجیح سیستم یا دارک
+(function initTheme() {
+  const saved = localStorage.getItem('theme');
+  if (saved) return applyTheme(saved);
+  const prefersLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+  applyTheme(prefersLight ? 'light' : 'dark');
+})();
+
+/* =========================================================
+   Helpers
+   ========================================================= */
+const set = (id, val) => {
+  const el = document.getElementById(id);
+  if (el) el.textContent = (val === undefined || val === null || val === '') ? 'نامشخص' : val;
+};
+const fmtTime = (s) => {
+  if (!isFinite(s) || s <= 0) return 'نامشخص';
+  const h = Math.floor(s / 3600);
+  const m = Math.floor((s % 3600) / 60);
+  return (h ? h + ' ساعت ' : '') + (m ? m + ' دقیقه' : (h ? '' : 'کمتر از ۱ دقیقه'));
+};
+
+/* =========================================================
+   Collect hardware info
+   ========================================================= */
+async function collect() {
+
+  /* ---------- CPU ---------- */
+  set('cpu-cores', navigator.hardwareConcurrency
+    ? navigator.hardwareConcurrency + ' هسته'
+    : 'پشتیبانی نمی‌شود');
+
+  /* ---------- WebGPU ---------- */
+  let gpuOk = 'پشتیبانی نمی‌شود';
+  let gpuArch = 'نامشخص';
+  if (navigator.gpu) {
+    try {
+      const adapter = await navigator.gpu.requestAdapter();
+      if (adapter) {
+        gpuOk = 'فعال ✓';
+        let info = adapter.info;
+        if (!info && adapter.requestAdapterInfo) {
+          try { info = await adapter.requestAdapterInfo(); } catch (_) {}
+        }
+        if (info) {
+          gpuArch = [info.vendor, info.architecture].filter(Boolean).join(' / ') || 'نامشخص';
+        } else {
+          gpuArch = 'مخفی توسط مرورگر';
+        }
+      } else {
+        gpuOk = 'آداپتور یافت نشد';
+      }
+    } catch (_) { gpuOk = 'خطا در دسترسی'; }
+  }
+  set('gpu-status', gpuOk);
+  set('gpu-arch', gpuArch);
+
+  /* ---------- RAM ---------- */
+  set('mem-ram', navigator.deviceMemory
+    ? 'حدود ' + navigator.deviceMemory + ' گیگابایت'
+    : 'پشتیبانی نمی‌شود');
+
+  /* ---------- WebGL + GPU Renderer ---------- */
+  try {
+    const canvas = document.createElement('canvas');
+    const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
+    if (gl) {
+      set('mem-webgl', 'فعال ✓');
+      const dbg = gl.getExtension('WEBGL_debug_renderer_info');
+      if (dbg) {
+        set('mem-renderer', gl.getParameter(dbg.UNMASKED_RENDERER_WEBGL));
+      } else {
+        set('mem-renderer', gl.getParameter(gl.RENDERER) || 'مخفی توسط مرورگر');
+      }
+    } else {
+      set('mem-webgl', 'غیرفعال');
+      set('mem-renderer', 'نامشخص');
+    }
+  } catch (_) {
+    set('mem-webgl', 'نامشخص');
+    set('mem-renderer', 'نامشخص');
+  }
+
+  /* ---------- Display ---------- */
+  set('scr-res', screen.width + ' × ' + screen.height);
+  set('scr-dpr', (window.devicePixelRatio || 1).toFixed(2) + 'x');
+  set('scr-depth', (screen.colorDepth || '?') + ' بیت');
+
+  /* ---------- Battery ---------- */
+  if (navigator.getBattery) {
+    try {
+      const bat = await navigator.getBattery();
+      const pct = Math.round(bat.level * 100);
+      set('bat-level', pct + '%');
+      set('bat-charging', bat.charging ? 'در حال شارژ ⚡' : 'شارژ نمی‌شود');
+      set('bat-time', bat.charging ? fmtTime(bat.chargingTime) : fmtTime(bat.dischargingTime));
+      document.getElementById('bat-bar').style.width = pct + '%';
+    } catch (_) {
+      set('bat-level', 'دسترسی داده نشد');
+    }
+  } else {
+    set('bat-level', 'پشتیبانی نمی‌شود');
+    set('bat-charging', '—');
+    set('bat-time', '—');
+  }
+
+  /* ---------- Network ---------- */
+  const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+  if (conn) {
+    set('net-type', (conn.effectiveType || 'نامشخص').toUpperCase());
+    set('net-down', conn.downlink ? conn.downlink + ' Mbps' : 'نامشخص');
+  } else {
+    set('net-type', 'پشتیبانی نمی‌شود');
+    set('net-down', '—');
+  }
+  set('net-online', navigator.onLine ? 'آنلاین ✓' : 'آفلاین ✗');
+
+  /* ---------- Device ---------- */
+  const ua = navigator.userAgentData;
+  if (ua) {
+    set('dev-platform', ua.platform || 'نامشخص');
+    set('dev-mobile', ua.mobile ? 'موبایل 📱' : 'دسکتاپ 💻');
+  } else {
+    // fallback برای فایرفاکس/سافاری
+    const p = navigator.platform || 'نامشخص';
+    set('dev-platform', p);
+    const isMobile = /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent);
+    set('dev-mobile', isMobile ? 'موبایل 📱' : 'دسکتاپ 💻');
+  }
+  set('dev-touch', (navigator.maxTouchPoints || 0) + ' نقطه');
+}
+
+/* =========================================================
+   Run
+   ========================================================= */
+collect();
+
+// به‌روزرسانی خودکار باتری و شبکه
+if (navigator.getBattery) {
+  navigator.getBattery().then(bat => {
+    ['levelchange','chargingchange','chargingtimechange','dischargingtimechange']
+      .forEach(ev => bat.addEventListener(ev, collect));
+  });
+}
+window.addEventListener('online',  collect);
+window.addEventListener('offline', collect);
+if (navigator.connection) {
+  navigator.connection.addEventListener('change', collect);
+}
+</script>
+</body>
+</html>
